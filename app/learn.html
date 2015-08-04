@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test app</title>
+    <script src="utils.js"></script>
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+    <div ng-app="invoice1" ng-controller="InvoiceCtrl as invoice">
+        <label>quantity:</label><input ng-model="invoice.qty">
+        <label>cost:</label><input ng-model="invoice.cost">
+            <select ng-model="invoice.inCurr">
+                <option ng-repeat="c in invoice.currencies">{{c |currency:c}}</option>
+            </select>
+        <label>total:</label><span ng-repeat="c in invoice.currencies">{{invoice.total(c) |currency:c}}</span>
+        <button ng-click="invoice.pay()">Pay</button>
+    </div>
+
+    <hr >
+    <div id="app-invoice2" ng-app="invoice2" ng-controller="invoice2Ctrl">
+        <label>quantity:</label><input ng-model="qty">
+        <label>cost:</label><input ng-model="cost">
+        <select ng-model="inCurr">
+            <option ng-repeat="c in currencies">{{c}}</option>
+        </select>
+        <label>total:</label>
+        <ul>
+            <li ng-repeat="c in currencies">{{ total(c) |currency:c}}</li>
+        </ul>
+        <button ng-click="pay()">pay</button>
+    </div>
+    <hr >
+    <div id="app-invoice3" ng-app="invoice3" ng-controller="invoice3Ctrl">
+        <label >quantity:</label><input ng-model="qty">
+        <label>cost:</label><input ng-model="cost">
+        <select ng-model="inCurr">
+            <option ng-repeat="c in currencies">{{c}}</option>
+        </select>
+        <label>total:</label>
+        <ul>
+            <li ng-repeat="c in currencies">{{ total(c) |currency:c }}</li>
+        </ul>
+    </div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="finance2.js"></script>
+<script src="utils.js"></script>
+<script src="invoice1.js"></script>
+</body>
+</html>
