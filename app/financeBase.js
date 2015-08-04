@@ -31,5 +31,10 @@ angular.module('finance_base', [])
             is_curr_valid(outCurr, 'outCurr not valid ' + outCurr);
             return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr];
         }
+
+        return {
+            currencies: currencies,
+            convert: convert
+        };
     });
 

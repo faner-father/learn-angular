@@ -50,9 +50,9 @@ angular.module('invoice2', ['finance2'])
         copyAttributes(x, $scope);
     });
 
-angular.module('invoice3', ['finance3'])
+angular.module('invoice3', [])
     .controller('invoice3Ctrl', function($scope){
-        $ = {
+        var $ = {
             qty: 1,
             cost: 2,
             inCurr: 'EUR',
