@@ -295,3 +295,9 @@ For more information on AngularJS please check out http://angularjs.org/
 [karma]: http://karma-runner.github.io
 [travis]: https://travis-ci.org/
 [http-server]: https://github.com/nodeapps/http-server
+
+
+#learn resources references:
+http://docs.ngnice.com/guide/concepts#injector
+https://docs.angularjs.org/guide/concepts
+https://docs.angularjs.org/guide/module
