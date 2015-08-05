@@ -68,5 +68,19 @@ angular.module('invoice3', ['finance_service_3', 'common_utils'])
         common_utils_service.copyAttributes($, $scope)
     });
 
+var myApp = angular.module('spicyApp1', []);
+
+myApp.controller('SpicyCtrl', ['$scope', function($scope){
+    $scope.spice = 'very';
+
+    $scope.chiliSpicy = function() {
+        $scope.spice = 'chili';
+    };
+
+    $scope.jalapenoSpicy = function() {
+        $scope.spice = 'jalapeño';
+    };
+}]);
 angular.bootstrap(document.getElementById("app-invoice2"), ['invoice2']);
 angular.bootstrap(document.getElementById('app-invoice3'), ['invoice3']);
+angular.bootstrap(document.getElementById('app-spicyApp1'), ['spicyApp1']);
