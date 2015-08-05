@@ -306,11 +306,6 @@ https://docs.angularjs.org/guide/module
 
 ## Injection constructor sequence
 
-reference : app/finance3.js
-look following codes:
-angular.module('finance_service_3', ['finance_base', 'common_utils'])
-.factory('finance_service_3_ctrl', ['finance_base_service', '$http', 'common_utils_service',
-        function(finance_base_service, $http, common_utils_service)
 注入依赖服务时,有两种方式指定需要那些服务:
 
 1. 根据服务的注册名称
