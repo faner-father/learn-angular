@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is object oriented programming learning!</title>
+    <script type="text/javascript">
+        //object masquerading
+        //way 1
+        function p(msg){
+            window.document.write(msg+'<br/>');
+        }
+        function classA(scolor){
+            this.color = scolor;
+            this.sayColor = function(){
+                p(this.color);
+            }
+        }
+
+        function classB(scolor){
+            this._base = classA;
+            this._base(scolor);
+            delete this._base;
+            this.name = 'class B';
+            this.sayName = function(){
+                p(this.name);
+            }
+//            return this;
+        }
+
+        function classC(){
+            this.name = 'class c';
+            this.hello = function(){
+                p(this.name);
+            }
+        }
+
+        //multi inherit
+        function classD(scolor){
+            this._base = classA;
+            this._base(scolor);
+            delete this._base;
+
+            this._base = classC;
+            this._base();
+            delete this._base;
+        }
+
+        var mo = new classD('mo');
+        mo.sayColor();
+        mo.hello();
+
+        var b = new classB('red');
+        b.sayColor();
+        b.sayName();
+//        b._base('green');
+        var a = new classA('blue');
+        a.sayColor();
+        b.sayColor();
+        b.sayName();
+        //way 2
+        function classX(name){
+            this.name = name;
+            this.tell = function(){
+                p(this.name);
+            }
+        }
+        function classY(){
+            this.age = 1;
+            this.pa = function(){
+                p(this.age);
+            }
+        }
+        var subX = new Object();
+        classX.call(subX, 'subx');
+        classY.call(subX);
+        subX.tell();
+        subX.pa();
+
+        var subX2 = {};
+        classX.apply(subX2, ['subx2']);
+        classY.apply(subX2);
+        subX2.tell();
+        subX2.pa();
+
+        //prototype way
+        function classP(scolor){
+            this.color = scolor;
+        }
+        classP.prototype.sayColor = function(){
+            p('color is '+this.color);
+        }
+
+        function classQ(scolor, name){
+            classP.call(this, scolor);
+            this.name = name;
+        }
+        classQ.prototype = new classP();
+        classQ.prototype.sayName = function(){
+            p('i m '+this.name);
+        }
+        var pq = new classQ('gray', 'pq----');
+        pq.sayColor();
+        pq.sayName();
+        new classP('xxcolor').sayColor();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

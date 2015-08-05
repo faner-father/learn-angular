@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="app.css" rel="stylesheet" type="text/css">
+    <title>This is for angular controller</title>
+</head>
+<body>
+<h1 >controller scope example</h1>
+<div class="spicy">
+    <div ng-app="scope_inheritance_app">
+        <div ng-controller="main_scope_ctrl">
+            <p>this is {{name}}</p>
+            <div ng-controller="child_scope_ctrl">
+                <p>this is {{name}} and  {{say}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="learn_controller.js"></script>
+</body>
+</html>
