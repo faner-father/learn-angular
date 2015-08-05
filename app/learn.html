@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>test app</title>
-    <script src="utils.js"></script>
     <script type="text/javascript">
+        document.write('<hr>');
     </script>
 </head>
 <body>
     <div ng-app="invoice1" ng-controller="InvoiceCtrl as invoice">
-        <label>quantity:</label><input ng-model="invoice.qty">
+        <label>quantity:</label><input ng-model="invoice.qty" required>
         <label>cost:</label><input ng-model="invoice.cost">
             <select ng-model="invoice.inCurr">
                 <option ng-repeat="c in invoice.currencies">{{c |currency:c}}</option>
@@ -42,6 +42,8 @@
         <ul>
             <li ng-repeat="c in currencies">{{ total(c) |currency:c }}</li>
         </ul>
+        <button ng-click="pay()">pay</button>
+        <button ng-click="refresh()">refresh</button>
     </div>
 <script src="bower_components/angular/angular.js"></script>
 <script src="utils.js"></script>

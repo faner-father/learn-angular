@@ -33,12 +33,12 @@ angular.module('invoice1', [])
         this.pay = function(){window.alert('pay');};
     });
 
-angular.module('invoice2', ['finance2'])
-    .controller('invoice2Ctrl', function($scope, currencyConverter){
+angular.module('invoice2', ['finance2', 'common_utils'])
+    .controller('invoice2Ctrl', function($scope, currencyConverter, common_utils_service){
         var x = {
             qty: 1,
             cost: 2,
-            inCurr: 'EUR',
+            inCurr: 'USD',
             total: function(outCurr){
                 return currencyConverter.convertCurrency($scope.qty * $scope.cost, $scope.inCurr, outCurr);
             },
@@ -47,29 +47,26 @@ angular.module('invoice2', ['finance2'])
             },
             currencies: currencyConverter.currencies
         };
-        copyAttributes(x, $scope);
+        common_utils_service.copyAttributes(x, $scope);
     });
 
-angular.module('invoice3', [])
-    .controller('invoice3Ctrl', function($scope){
+angular.module('invoice3', ['finance_service_3', 'common_utils'])
+    .controller('invoice3Ctrl', function($scope, finance_service_3_ctrl, common_utils_service){
         var $ = {
             qty: 1,
             cost: 2,
-            inCurr: 'EUR',
+            inCurr: 'USD',
+            currencies: finance_service_3_ctrl.currencies,
             total: function(outCurr){
-                window.alert('to be inplemented!' + outCurr)
+                return finance_service_3_ctrl.convert($scope.qty * $scope.cost, $scope.inCurr, outCurr);
             },
             pay: function(){
                 window.alert('pay!!!');
-            }
+            },
+            refresh:finance_service_3_ctrl.refresh
         };
-        copyAttributes($, $scope)
+        common_utils_service.copyAttributes($, $scope)
     });
 
 angular.bootstrap(document.getElementById("app-invoice2"), ['invoice2']);
-angular.bootstrap(document.getElementById('app-invoice3'), ['invoice3'])
-//angular.module('invoice2', ['finance2'])
-//    .controller('invoice2Ctrl', function($scope, currencyConverter){
-//        $scope.qty = 1;
-//        $scope.currencies = currencyConverter.currencies ;
-//    });
+angular.bootstrap(document.getElementById('app-invoice3'), ['invoice3']);

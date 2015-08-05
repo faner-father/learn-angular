@@ -7,10 +7,10 @@
 angular.module('finance_base', [])
     .factory('finance_base_service', function(){
         var currencies = ['EUR', 'CNY', 'USD'];
-        var inCurr = 'EUR';
+        var inCurr = 'USD';
         var usdToForeignRates = {
             USD: 1,
-            EUR: 0.6,
+            EUR: 0.61,
             CNY: 6.0
         };
 
@@ -29,7 +29,7 @@ angular.module('finance_base', [])
                 throw 'amount is not valid!' + amount;
             is_curr_valid(inCurr, 'inCurr not valid ' + inCurr);
             is_curr_valid(outCurr, 'outCurr not valid ' + outCurr);
-            return amount * usdToForeignRates[outCurr] / usdToForeignRates[inCurr];
+            return amount * this.usdToForeignRates[outCurr] / this.usdToForeignRates[inCurr];
         }
 
         return {

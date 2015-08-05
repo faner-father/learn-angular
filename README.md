@@ -301,3 +301,25 @@ For more information on AngularJS please check out http://angularjs.org/
 http://docs.ngnice.com/guide/concepts#injector
 https://docs.angularjs.org/guide/concepts
 https://docs.angularjs.org/guide/module
+
+# TIPS: tips in learning process
+## Injection constructor sequence
+reference : app/finance3.js
+look following codes:
+angular.module('finance_service_3', ['finance_base', 'common_utils'])
+.factory('finance_service_3_ctrl', ['finance_base_service', '$http', 'common_utils_service',
+        function(finance_base_service, $http, common_utils_service)
+注入依赖服务时,有两种方式指定需要那些服务:
+    1.根据服务的注册名称
+      example:
+      angular.module('invoice3', ['finance_service_3', 'common_utils'])
+          .controller('invoice3Ctrl', function($scope, finance_service_3_ctrl, common_utils_service){....}
+      这里只需要在构造函数的参数列表里面指定具体服务的注册名称(即angular.module().factory('service_name',function{})
+      即可保证正确注入
+    2.使用数组方式注入,保证引入顺序与构造函数的参数顺序一致
+      例如
+      angular.module('finance_service_3', ['finance_base', 'common_utils'])
+          .factory('finance_service_3_ctrl', ['finance_base_service', '$http', 'common_utils_service',
+              function(finance_base_service, req, common_utils_service)
+      这种方式下,factory的第二个参数为数组,最后一个参数为构造函数,前几个参数为待注入的服务(使用服务注册名称),
+        构造函数的参数对应各服务依次注入,参数名称可以自定义(除$scope等有特殊意义的参数名)
