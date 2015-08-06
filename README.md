@@ -306,18 +306,22 @@ https://docs.angularjs.org/guide/module
 
 ## Injection constructor sequence
 
-注入依赖服务时,有两种方式指定需要那些服务:
+注入依赖服务时,有两种注入方式指定需要那些服务:
 
-1. 根据服务的注册名称
+1. 根据服务的注册名称(隐式implicit)
       example:
       angular.module('invoice3', ['finance_service_3', 'common_utils'])
           .controller('invoice3Ctrl', function($scope, finance_service_3_ctrl, common_utils_service){....}
       这里只需要在构造函数的参数列表里面指定具体服务的注册名称(即angular.module().factory('service_name',function{})
       即可保证正确注入
-2. 使用数组方式注入,保证引入顺序与构造函数的参数顺序一致
+2. 使用数组方式注入,保证引入顺序与构造函数的参数顺序一致(显示explicit)
       例如
       angular.module('finance_service_3', ['finance_base', 'common_utils'])
           .factory('finance_service_3_ctrl', ['finance_base_service', '$http', 'common_utils_service',
               function(finance_base_service, req, common_utils_service)
       这种方式下,factory的第二个参数为数组,最后一个参数为构造函数,前几个参数为待注入的服务(使用服务注册名称),
         构造函数的参数对应各服务依次注入,参数名称可以自定义(除$scope等有特殊意义的参数名)
+    参见:learn_service.js/learn_service.html中两种不同的显示注入方式
+最佳实践(best practise):
+    隐式方式虽然最简洁,但是当使用js压缩工具时,参数名称会被改变,导致无法注入.可以使用ngmin来解决.
+    所以推荐使用explicit方式中的array annotation.

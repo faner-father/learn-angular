@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is for learning scope</title>
+    <script type="text/javascript">
+//        (function(){
+//            alert('load page');
+//        })();
+    </script>
+</head>
+<body>
+<div ng-app="eventExample">
+    <div ng-controller="eventCtrl">
+        <p>this is root scope:{{count}}</p>
+        <button ng-click="$broadcast('MyEvent')">broadcast event</button>
+        <button ng-click="$broadcast('ResetEvent')">reset all</button>
+        <div ng-controller="eventCtrl">
+            <p>this middle scope:{{count}}</p>
+            <button ng-click="$emit('MyEvent')">emit event</button>
+            <div ng-repeat="item in [1, 2]" ng-controller="eventCtrl">
+                <p>this is the {{item}} item : {{count}}</p>
+                <button ng-click="$emit('MyEvent')">emit event</button>
+                <button ng-click="echo()">echo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="learn_scope.js"></script>
+</body>
+</html>

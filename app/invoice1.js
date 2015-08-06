@@ -33,7 +33,7 @@ angular.module('invoice1', [])
         this.pay = function(){window.alert('pay');};
     });
 
-angular.module('invoice2', ['finance2', 'common_utils'])
+angular.module('invoice2', ['finance2', 'common_utils']).config
     .controller('invoice2Ctrl', function($scope, currencyConverter, common_utils_service){
         var x = {
             qty: 1,
