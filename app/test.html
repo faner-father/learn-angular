@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        function $HTMLDocument(){
+        }
+        $HTMLDocument.prototype.write = function(text){
+            document.write(text + '<br/>');
+        }
+        $document = new $HTMLDocument();
+
+        //IIFE
+        var mod = (function(){
+            _count = 0;
+            function m1(){
+                $document.write(_count);
+            }
+            function m2(){
+                _count += 1;
+            }
+            return {
+                m1:m1,
+                m2:m2
+            }
+        })();
+
+        mod.m1();
+        mod.m2();
+        mod.m1();
+        document.write(mod._count);
+        var mod2 = (function(_mod){
+            _mod.m3 = function m3(){
+                $document.write('m3');
+            }
+            return mod;
+        })(window.mod || {});
+
+        mod2.m1();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

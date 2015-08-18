@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript">
+        var mod = angular.module('dir-app', []);
+        mod.controller('dirCtrl', function ($scope) {
+            $scope.name = 'hello';
+            $scope.setName = function (xname) {
+                $scope.name = $scope.name == 'hello' ? 'world' : 'hello';
+            };
+            $scope.noami = {
+                name: 'xnoa'
+
+            }
+            $scope.admin = {
+                name: 'adm'
+            }
+        });
+
+        mod.directive('myCustomer', function () {
+            return {
+                restrict: 'E',
+                scope: {
+                    customerInfo: '=' //customerInfo:'=customerInfo'
+                },
+                template: 'Name is {{customerInfo.name}}'
+            }
+        });
+
+        mod.controller('updateTimeCtrl', function ($scope) {
+            $scope.format = 'yyyy-MM-dd h:mm:ss a'
+        });
+
+        mod.directive('updateTime', [function(){
+            function link(){
+
+            }
+
+            return {
+                link:link
+            }
+        }])
+    </script>
+    <title></title>
+</head>
+<body ng-app="dir-app" ng-controller="dirCtrl">
+<input type="text" value="{{name}}">
+<button ng-click="setName('ooo')">setName</button>
+<br/>
+<my-customer customer-info="noami"></my-customer>
+<br/>
+<my-customer customer-info=admin></my-customer>
+</body>
+</html>

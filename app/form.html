@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is for learning form</title>
+</head>
+<body ng-app="form">
+<div novalidate ng-controller="formCtrl">
+    <form class="css-form">
+        <label>Name:</label>
+        <input type="text" ng-model="user.name" required>
+        <label>Email:</label>
+        <input type="email" ng-model="user.email" required>
+        <label>Gender:</label>
+        <input type="radio" ng-model='user.gender' value="male">male
+        <input type="radio" ng-model="user.gender" value="female">female
+        <button ng-click="reset()">reset</button>
+        <input type="submit" value="submit" ng-click="update(user)">
+    </form>
+    <div>
+        <p>user = {{ user | json }}</p>
+        <p>master = {{ master|json }}</p>
+    </div>
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="form.js"></script>
+<style type="text/css">
+    .css-form input.ng-invalid.ng-touched {
+        background-color: #FA787E;
+    }
+
+    .css-form input.ng-valid.ng-touched {
+        background-color: #78FA89;
+    }
+</style>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="test_filter_app">
+<head>
+    <meta charset="UTF-8">
+    <title>test_filter</title>
+</head>
+<body>
+<div ng-controller="test_filter_ctrl">
+    <p>
+        {{ 'asd' | test_filter }}
+        {{ 'xyz' | filter2 }}
+    </p>
+
+</div>
+<div ng-controller="ctrl1">
+    <p>
+        {{ '123' | f2}}
+    </p>
+</div>
+<script src="bower_components/angular/angular.js"></script>
+<script src="filters.js"></script>
+</body>
+</html>
