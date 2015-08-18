@@ -336,4 +336,8 @@ https://docs.angularjs.org/guide/module
 
 2.  列表页面 list.html
 
+## 问题
+
+>  参考链接中的内容基于旧版angular, ngroute属于内置模块,不需要引入,而新版ngroute独立为插件,需要单独引入.
+
 3.  帖子页面 detail.html
