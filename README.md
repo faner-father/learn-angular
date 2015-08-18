@@ -330,7 +330,7 @@ https://docs.angularjs.org/guide/module
 
 ## 场景描述
 
-> 论坛功能  
-1. 主页 index.html
-2. 列表页面 list.html
-3. 帖子页面 detail.html
+>  论坛功能
+1.  主页 index.html
+2.  列表页面 list.html
+3.  帖子页面 detail.html
