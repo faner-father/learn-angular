@@ -321,3 +321,16 @@ https://docs.angularjs.org/guide/module
               function(finance_base_service, req, common_utils_service)
       这种方式下,factory的第二个参数为数组,最后一个参数为构造函数,前几个参数为待注入的服务(使用服务注册名称),
         构造函数的参数对应各服务依次注入,参数名称可以自定义(除$scope等有特殊意义的参数名)
+
+
+
+# ng-route app
+
+[参考链接:](http://blog.fens.me/angularjs-route-template/)
+
+## 场景描述
+
+> 论坛功能
+1. 主页 index.html
+2. 列表页面 list.html
+3. 帖子页面 detail.html
