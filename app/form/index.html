@@ -3,34 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>form</title>
-    <script src="bower_components/angular/angular.js"></script>
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
 </head>
-<body ng-app>
+<body ng-app="formExample">
 <div ng-controller="ExampleController">
-    <form novalidate class="simple-form">
-        Name: <input type="text" ng-model="user.name" /><br />
-        E-mail: <input type="email" ng-model="user.email" /><br />
-        Gender: <input type="radio" ng-model="user.gender" value="male" />male
-        <input type="radio" ng-model="user.gender" value="female" />female<br />
-        <input type="button" ng-click="reset()" value="Reset" />
-        <input type="submit" ng-click="update(user)" value="Save" />
-        <input type="number" name="size" />
+    <form novalidate class="simple-form" name="simpleForm">
+        Name: <input type="text" ng-model="user.name"/><br/>
+        E-mail: <input type="email" ng-model="user.email"/><br/>
+        Gender: <input type="radio" ng-model="user.gender" value="male"/>male
+        <input type="radio" ng-model="user.gender" value="female"/>female<br/>
+        <input type="button" ng-click="reset()" value="Reset"/>
+        <input type="submit" ng-click="update(user)" value="Save"/>
+        <input type="button" value="submit" ng-click="submit()"/>
     </form>
     <pre>form = {{user | json}}</pre>
     <pre>master = {{master | json}}</pre>
+    <pre>response = {{resp | json}}</pre>
 </div>
 
 <script>
     angular.module('formExample', [])
-            .controller('ExampleController', ['$scope', function($scope) {
+            .controller('ExampleController', ['$scope', '$http', function ($scope, $http) {
                 $scope.master = {};
+                $scope.resp = {};
 
-                $scope.update = function(user) {
+                $scope.update = function (user) {
                     $scope.master = angular.copy(user);
                 };
 
-                $scope.reset = function() {
+                $scope.reset = function () {
                     $scope.user = angular.copy($scope.master);
+                };
+
+                var _debug_form = function (val, key, src) {
+                    if (!val) {
+                        console.log(key + ': ' + 'null!' + val);
+                    }
+                    else if (_.isString(val)) {
+                        console.log(key + ': ' + val);
+                    }
+                    else if (_.isObject(val)) {
+                        _.filter(val, _debug_form);
+                    } else {
+                        console.log(key + ': ' + 'other!' + val);
+                    }
+                };
+
+                $scope.api = 'http://localhost:2000/forms/simple-form'
+                $scope.submit = function () {
+//                    console.log('action=' + $scope.simpleForm.action);//can't get the action attribute
+//                    _.filter($scope, function(val, key, obj){
+//                        if(key && key.toLowerCase().indexOf('form') != -1){
+//                            console.log(key + '-------' + val);
+//                            _debug_form(val, key, obj);
+//                        };
+//                    });
+                    _.filter($scope.user, function (val, key, __) {
+                        console.log(key + ': ' + val);
+                    });
+
+                    $http({
+                        method: 'POST',
+                        url: $scope.api,
+                        data: angular.copy($scope.user)
+                    })
+                            .success(function (data) {
+//                                console.log(data);
+                                $scope.resp = angular.copy(data);
+                            })
+                            .error(function(data, status, header, config){
+                                console.log('error' + data + status + header + config);
+                            });
                 };
 
                 $scope.reset();
