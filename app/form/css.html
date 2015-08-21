@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form css usage</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <!-- reference: https://docs.angularjs.org/guide/forms
+    ng-valid: the model is valid
+ng-invalid: the model is invalid
+ng-valid-[key]: for each valid key added by $setValidity
+ng-invalid-[key]: for each invalid key added by $setValidity
+ng-pristine: the control hasn't been interacted with yet
+ng-dirty: the control has been interacted with
+ng-touched: the control has been blurred
+ng-untouched: the control hasn't been blurred
+ng-pending: any $asyncValidators are unfulfilled
+    -->
+</head>
+<body>
+<div ng-controller="ExampleController">
+    <form novalidate class="css-form">
+        Name: <input type="text" ng-model="user.name" required/><br/>
+        E-mail: <input type="email" ng-model="user.email" required/><br/>
+        Gender: <input type="radio" ng-model="user.gender" value="male"/>male
+        <input type="radio" ng-model="user.gender" value="female"/>female<br/>
+        <input type="button" ng-click="reset()" value="Reset"/>
+        <input type="submit" ng-click="update(user)" value="Save"/>
+    </form>
+    <pre>form = {{user | json}}</pre>
+    <pre>master = {{master | json}}</pre>
+</div>
+
+<style type="text/css">
+    .css-form input.ng-invalid.ng-dirty {
+        background-color: #FA787E;
+    }
+
+    .css-form input.ng-valid.ng-touched {
+        background-color: #78FA89;
+    }
+</style>
+
+<script>
+    angular.module('formExample', [])
+            .controller('ExampleController', ['$scope', function ($scope) {
+                $scope.master = {};
+
+                $scope.update = function (user) {
+                    $scope.master = angular.copy(user);
+                };
+
+                $scope.reset = function () {
+                    $scope.user = angular.copy($scope.master);
+                };
+
+                $scope.reset();
+            }]);
+    angular.bootstrap(document.getElementsByTagName('body'), ['formExample']);
+</script>
+</body>
+</html>
