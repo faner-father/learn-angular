@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is for practise of "bind form and control state"</title>
+    <script src="../bower_components/underscore/underscore.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <style type="text/css">
+        input.ng-touched.ng-invalid-required {
+            background-color: red;
+        }
+
+        input.ng-valid {
+            background-color: Aqua;
+        }
+    </style>
+</head>
+<body ng-app="exampleApp" ng-controller="exampleController">
+<form name="form" class="css-form" novalidate>
+    <label>name:</label>
+    <input type="text" ng-model="user.name" name="uName" required>
+
+    <div ng-show="form.$submitted || form.uName.$touched">
+        <div ng-show="form.uName.$error.required">name required</div>
+    </div>
+    <br/>
+    <label>email:</label>
+    <input type="email" ng-model="user.email" name="uEmail" required>
+    <br/>
+    <label>size:</label>
+    <input type="number" ng-model="user.size" name="uSize" required>
+
+    <div ng-show="form.$submitted || form.uSize.$touched">
+        <div ng-show="form.uSize.$error.number">please input number</div>
+        <div ng-show="!form.uSize.$error.number && isNotInteger(form.uSize)">is not integer</div>
+    </div>
+    <br/>
+    <input type="button" ng-click="reset(form)" value="reset">
+    <input type="submit" ng-click="save()" value="save">
+    <input type="button" ng-click="debug(form)" value="debug">
+    <hr/>
+    <p>user:{{ user |json }}</p>
+
+    <p>master:{{ master |json }}</p>
+</form>
+<script type="text/javascript">
+    angular.module('exampleApp', [])
+            .controller('exampleController', ['$scope', function ($scope) {
+                $scope.master = {};
+
+                $scope.isNotInteger = function (val) {
+                    //it's valid number but not integer.
+                    console.log('====isInteger' + val);
+//                    _debug_obj(val, true);
+                    console.log('usize.$error.number=' + val.$error.number);
+                    val = val.$modelValue;
+                    console.log('modelValue' + val);
+                    var ret = !((typeof val === 'number') && isFinite(val) && Math.floor(val) === val);
+                    console.log('ret=' + ret);
+                    return ret;
+                }
+
+                var _debug_obj = function (obj, ignore_func) {
+                    _.each(obj, function (val, key, obj) {
+                        if (!ignore_func || (ignore_func === true && !_.isFunction(val)))
+                            console.log(key + ': ' + val);
+                    });
+                }
+
+                $scope.debug = function (form) {
+                    var watch_vars = ['uName', 'uSize', 'uEmail'];
+                    if (form) {
+                        _.filter(form, function (val, key, obj) {
+                            if (_.contains(watch_vars, key)) {
+                                console.log('---------------------------' + key + ': ' + val);
+                                _debug_obj(val, true);
+                            }
+                        });
+                    } else {
+                        console.log('form is empty');
+                    }
+                }
+
+                $scope.reset = function (form) {
+                    console.log('rese---')
+                    if (form) {
+                        form.$setPristine();
+                        form.$setUntouched();
+                    }
+                };
+
+                $scope.save = function () {
+                    $scope.master = angular.copy($scope.user);
+                }
+            }])
+</script>
+</body>
+</html>
