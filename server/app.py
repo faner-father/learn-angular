@@ -19,7 +19,7 @@ def index():
 def simple_form():
     jd = request.json
     map(lambda item: jd.setdefault(item[0], jd.pop(item[0]) + '_tail'), jd.iteritems())
-    return json.dumps(jd), 301
+    return json.dumps(jd)
 
 
 @app.route('/forms/<name>', methods=['GET', 'POST', 'PUT', 'DELETE'])
